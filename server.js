@@ -9,6 +9,7 @@ var port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 var orange_api_client_id = process.env.ORANGE_API_CLIENT_ID || 'UNDEFINED';
 
+console.log("Client ID:"+orange_api_client_id);
 
 // Create and configure server
 

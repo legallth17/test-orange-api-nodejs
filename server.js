@@ -2,6 +2,7 @@
 require('./termination_handlers.js');
 
 var express = require('express');
+var orange_api = require('./orange_api.js');
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
@@ -25,6 +26,9 @@ app.get('/login', function(req, res) {
         res.send("empty login");
 });
 
+app.get('/test', function(req, res) {
+	res.redirect(orange_api.authorize_url());
+});
 // Start server
 
 app.listen(port, ipaddress, function() {

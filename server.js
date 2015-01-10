@@ -7,6 +7,9 @@ var orange_api = require('./orange_api.js');
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
+var orange_api_client_id = process.env.ORANGE_API_CLIENT_ID || 'UNDEFINED';
+
+
 // Create and configure server
 
 var app = express();
@@ -14,6 +17,7 @@ var app = express();
 app.get('/info', function(req, res) {
         res.setHeader('Content-Type', 'text/plain');
         res.send("simple app to test orange api");
+        res.send(orange_api_client_id);
 });
 
 app.get('/', function(req, res) {
@@ -26,7 +30,7 @@ app.get('/login', function(req, res) {
         res.send("empty login");
 });
 
-app.get('/test', function(req, res) {
+app.get('/authenticate', function(req, res) {
 	res.redirect(orange_api.authorize_url());
 });
 // Start server

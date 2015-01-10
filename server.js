@@ -16,9 +16,9 @@ console.log("Client ID:"+orange_api_client_id);
 var app = express();
 
 app.get('/info', function(req, res) {
-        res.setHeader('Content-Type', 'text/plain');
-        res.send("simple app to test orange api");
-        res.send(orange_api_client_id);
+		res.type('text/plain');
+        res.send('simple app to test orange api\n'+
+        	      'orange_api_client_id:'+ orange_api_client_id);
 });
 
 app.get('/', function(req, res) {

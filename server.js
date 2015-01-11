@@ -7,7 +7,9 @@ var orange_api = require('./orange_api.js');
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
-var orange_api_client_id = process.env.ORANGE_API_CLIENT_ID || 'UNDEFINED';
+var orange_api_client_id    = process.env.ORANGE_API_CLIENT_ID || 'UNDEFINED';
+var orange_api_redirect_url = 'http://app1-legallth.rhcloud.com/login'
+
 
 console.log("Client ID:"+orange_api_client_id);
 
@@ -32,7 +34,7 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/authenticate', function(req, res) {
-	res.redirect(orange_api.authorize_url());
+	res.redirect(orange_api.authorize_url(orange_api_client_id, orange_api_redirect_url));
 });
 // Start server
 

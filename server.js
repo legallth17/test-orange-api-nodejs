@@ -29,8 +29,19 @@ app.get('/', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
-        res.setHeader('Content-Type', 'text/plain');
-        res.send("empty login");
+        if(req.query.error) {
+            res.send(req.query);
+            return;
+        }
+        if( !req.query.code) {
+            res.send("authorization code not provided");
+            return;
+        }
+        if( req.query.state != orange_api.state()) {
+            res.send("Invalid state. Expected: " + orange_api.state() + "; Received: "+req.query.state);
+            return;
+        }
+        res.send("authorization code: "+req.query.state);
 });
 
 app.get('/authenticate', function(req, res) {

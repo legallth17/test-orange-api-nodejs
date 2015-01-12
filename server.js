@@ -41,7 +41,7 @@ app.get('/login', function(req, res) {
             res.send("Invalid state. Expected: " + orange_api.state() + "; Received: "+req.query.state);
             return;
         }
-        res.send("authorization code: "+req.query.state);
+        res.send("authorization code: "+req.query.code);
 });
 
 app.get('/authenticate', function(req, res) {

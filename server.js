@@ -50,7 +50,7 @@ app.get('/authenticate', function(req, res) {
 });
 
 app.get('/authorized', function(req, res) {
-    res.send('user has been authorized'));
+    res.send('user has been authorized');
 });
 
 // Start server

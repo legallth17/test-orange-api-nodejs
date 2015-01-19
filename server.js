@@ -41,12 +41,18 @@ app.get('/login', function(req, res) {
             res.send("Invalid state. Expected: " + orange_api.state() + "; Received: "+req.query.state);
             return;
         }
-        res.send("authorization code: "+req.query.code);
+        console.log("authorization code: "+req.query.code);
+        res.redirect("authorized");
 });
 
 app.get('/authenticate', function(req, res) {
 	res.redirect(orange_api.authorize_url(orange_api_client_id, orange_api_redirect_url));
 });
+
+app.get('/authorized', function(req, res) {
+    res.send('user has been authorized'));
+});
+
 // Start server
 
 app.listen(port, ipaddress, function() {

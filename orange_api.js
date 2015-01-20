@@ -14,11 +14,13 @@ exports.token = function(client_id, client_secret, authorization_code, redirect_
     request.post(
         'https://api.orange.com/oauth/v2/token',
         {   auth: { user: client_id, pass: client_secret }, 
-            form: { grant_type: "authorization_code", code: authorization_code, redirect_uri: redirect_uri } },
+            form: { grant_type: "authorization_code1", code: authorization_code, redirect_uri: redirect_uri } },
         function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(body);
                 callback(body);
+            } else {
+                callback(undefined);
             }
         }
     );

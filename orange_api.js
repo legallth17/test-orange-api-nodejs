@@ -10,8 +10,7 @@ exports.state = function() {
 	return "TEST";
 }
 
-exports.token = function(client_id, client_secret, authorization_code, redirect_uri) {
-    var token = undefined;
+exports.token = function(client_id, client_secret, authorization_code, redirect_uri, callback) {
     request.post(
         'https://api.orange.com/oauth/v2/token',
         {   auth: { user: client_id, pass: client_secret }, 
@@ -19,9 +18,8 @@ exports.token = function(client_id, client_secret, authorization_code, redirect_
         function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(body);
-                token = body;
+                callback(body);
             }
         }
     );
-    return token;
 }

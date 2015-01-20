@@ -7,8 +7,9 @@ var orange_api = require('./orange_api.js');
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
-var orange_api_client_id    = process.env.ORANGE_API_CLIENT_ID || 'UNDEFINED';
-var orange_api_redirect_url = 'http://app1-legallth.rhcloud.com/login'
+var orange_api_client_id     = process.env.ORANGE_API_CLIENT_ID || 'UNDEFINED';
+var orange_api_client_secret = process.env.ORANGE_API_CLIENT_SECRET || 'UNDEFINED';
+var orange_api_redirect_url  = 'http://app1-legallth.rhcloud.com/login'
 
 
 console.log("Client ID:"+orange_api_client_id);
@@ -41,8 +42,10 @@ app.get('/login', function(req, res) {
             res.send("Invalid state. Expected: " + orange_api.state() + "; Received: "+req.query.state);
             return;
         }
-        console.log("authorization code: "+req.query.code);
-        res.redirect("authorized");
+        var autorization_code = req.query.code;
+        console.log("authorization code: "+authorization_code);
+        var token = orange_api.token(orange_api_client_id, orange_api_client_secret, authorization_code, orange_api_redirect_url);
+        res.json(token);
 });
 
 app.get('/authenticate', function(req, res) {

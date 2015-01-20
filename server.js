@@ -45,7 +45,8 @@ app.get('/login', function(req, res) {
         var authorization_code = req.query.code;
         console.log("authorization code: "+authorization_code);
         var token = orange_api.token(orange_api_client_id, orange_api_client_secret, authorization_code, orange_api_redirect_url);
-        res.send(token);
+        console.log("token: "+token);
+        res.redirect('authorized');
 });
 
 app.get('/authenticate', function(req, res) {

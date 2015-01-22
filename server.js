@@ -18,6 +18,10 @@ console.log("Client ID:"+orange_api_client_id);
 
 var app = express();
 
+app.use(express.cookieParser());
+app.use(express.session('HJ786FSRZYTV675432KLPB'))
+
+
 app.get('/info', function(req, res) {
 		res.type('text/plain');
         res.send('simple app to test orange api\n'+
@@ -46,11 +50,12 @@ app.get('/authorization', function(req, res) {
         console.log("authorization code: "+authorization_code);
         orange_api.token(orange_api_client_id, orange_api_client_secret, authorization_code, orange_api_redirect_url, 
             function(token) {
-                console.log("token: "+token);
+                console.log("token: "+JSON.stringify(token));
                 if(!token) {
                     res.send("error while getting token");
                     return;
                 }
+                req.session.token=token.id_token;
                 res.redirect('authorized');
             });
 });
@@ -60,7 +65,7 @@ app.get('/authenticate', function(req, res) {
 });
 
 app.get('/authorized', function(req, res) {
-    res.send('user has been authorized');
+    res.send('user has been authorized; token:'+req.session.token);
 });
 
 // Start server

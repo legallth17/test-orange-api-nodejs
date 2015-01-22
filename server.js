@@ -55,7 +55,7 @@ app.get('/authorization', function(req, res) {
                     res.send("error while getting token");
                     return;
                 }
-                req.session.token=token.id_token;
+                req.session.token=token;
                 res.redirect('authorized');
             });
 });
@@ -65,7 +65,7 @@ app.get('/authenticate', function(req, res) {
 });
 
 app.get('/authorized', function(req, res) {
-    res.send('user has been authorized; token:'+req.session.token);
+    res.send('user has been authorized; token:'+JSON.stringify(req.session.token));
 });
 
 // Start server

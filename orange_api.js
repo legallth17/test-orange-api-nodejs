@@ -17,7 +17,9 @@ exports.token = function(client_id, client_secret, authorization_code, redirect_
             form: { grant_type: "authorization_code", code: authorization_code, redirect_uri: redirect_uri } },
         function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                callback(body);
+                var token = JSON.parse(body);
+                console.log(token.id_token);
+                callback(token);
             } else {
                 callback(undefined);
             }

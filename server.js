@@ -9,7 +9,7 @@ var port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 var orange_api_client_id     = process.env.ORANGE_API_CLIENT_ID || 'UNDEFINED';
 var orange_api_client_secret = process.env.ORANGE_API_CLIENT_SECRET || 'UNDEFINED';
-var orange_api_redirect_url  = 'http://app1-legallth.rhcloud.com/login'
+var orange_api_redirect_url  = 'http://app1-legallth.rhcloud.com/authorization'
 
 
 console.log("Client ID:"+orange_api_client_id);
@@ -29,7 +29,7 @@ app.get('/', function(req, res) {
         res.send("empty root");
 });
 
-app.get('/login', function(req, res) {
+app.get('/authorization', function(req, res) {
         if(req.query.error) {
             res.send(req.query);
             return;

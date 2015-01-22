@@ -19,7 +19,7 @@ console.log("Client ID:"+orange_api_client_id);
 var app = express();
 
 app.use(express.cookieParser());
-app.use(express.session('HJ786FSRZYTV675432KLPB'))
+app.use(express.session({secret: 'HJ786FSRZYTV675432KLPB'}))
 
 
 app.get('/info', function(req, res) {

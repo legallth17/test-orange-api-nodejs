@@ -21,6 +21,14 @@ var app = express();
 app.use(express.cookieParser());
 app.use(express.session({secret: 'HJ786FSRZYTV675432KLPB'}))
 
+app.use(function(req,res,next) {
+    if(req.session.token) {
+        console.log("token exists: "+JSON.stringify(req.session.token));
+    } else {
+        console.log("no token: user is not authenticated nor authorized");
+    }
+    next();
+});
 
 app.get('/info', function(req, res) {
 		res.type('text/plain');

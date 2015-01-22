@@ -21,13 +21,14 @@ var app = express();
 app.use(express.cookieParser());
 app.use(express.session({secret: 'HJ786FSRZYTV675432KLPB'}))
 
-app.use(function(req,res,next) {
+app.use('/authorized', function(req,res,next) {
     if(req.session.token) {
         console.log("token exists: "+JSON.stringify(req.session.token));
+        next();
     } else {
         console.log("no token: user is not authenticated nor authorized");
+        res.redirect('authenticate');
     }
-    next();
 });
 
 app.get('/info', function(req, res) {
@@ -73,7 +74,11 @@ app.get('/authenticate', function(req, res) {
 });
 
 app.get('/authorized', function(req, res) {
-    res.send('user has been authorized; token:'+JSON.stringify(req.session.token));
+    res.send('user has been authorized');
+});
+
+app.get('/authorized/info', function(req, res) {
+    res.send('authorized section');
 });
 
 // Start server

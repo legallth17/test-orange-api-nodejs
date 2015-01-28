@@ -65,7 +65,7 @@ app.get('/authorization', function(req, res) {
                     return;
                 }
                 console.log("token: "+JSON.stringify(token));
-                var id_token = jwt.decode(token.id_token);
+                var id_token = jwt.verify(token.id_token,'', { 'audience':orange_api_client_id});
                 console.log("id_token: "+JSON.stringify(id_token));
                 req.session.token=token;
                 res.redirect('authorized');

@@ -2,6 +2,7 @@
 require('./termination_handlers.js');
 
 var express = require('express');
+var jwt     = require('jsonwebtoken');
 var orange_api = require('./orange_api.js');
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
@@ -59,11 +60,13 @@ app.get('/authorization', function(req, res) {
         console.log("authorization code: "+authorization_code);
         orange_api.token(orange_api_client_id, orange_api_client_secret, authorization_code, orange_api_redirect_url, 
             function(token) {
-                console.log("token: "+JSON.stringify(token));
                 if(!token) {
                     res.send("error while getting token");
                     return;
                 }
+                console.log("token: "+JSON.stringify(token));
+                var id_token = jwt.verify(token.id_token);
+                console.log("id_token: "+JSON.stringify(id_token));
                 req.session.token=token;
                 res.redirect('authorized');
             });

@@ -1,13 +1,26 @@
 var request = require('request');
+var uuid = require('node-uuid');
+
+var state_codes = [];
 
 exports.authorize_url = function(client_id, redirect_uri) {
 	return "https://api.orange.com/oauth/v2/authorize?scope=openid&response_type=code&client_id="+client_id+
-	       "&state=TEST"+
+	       "&state="+new_state_code()+
 	       "&redirect_uri="+encodeURIComponent(redirect_uri);
 }
 
-exports.state = function() {
-	return "TEST";
+exports.new_state_code = function() {
+    var code = uuid.v1();
+    state_codes.push(code);
+    return code;
+}
+
+exports.is_valid_state_code = function(code) {
+    var i=0;
+    for(i=0;i<state_codes.length;i++) {
+        if( state_codes[i] == code) return true;
+    }
+    return false;
 }
 
 exports.token = function(client_id, client_secret, authorization_code, redirect_uri, callback) {

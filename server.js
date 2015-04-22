@@ -53,7 +53,7 @@ app.get('/authorization', function(req, res) {
             return;
         }
         if( !orange_api.is_valid_state_code(req.query.state)) {
-            res.send("Unexpected state code: "+req.query.state);
+            res.send("invalid state code: "+req.query.state);
             return;
         }
         var authorization_code = req.query.code;

@@ -1,3 +1,8 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
+Simple nodejs app to test Orange API
 
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+App is designed to be deployed on Openshift but can be ea
+
+Orange API client id and client secret must be defined with following env variables:
+
+ORANGE_API_CLIENT_ID
+ORANGE_API_CLIENT_SECRET

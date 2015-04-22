@@ -40,7 +40,7 @@ app.get('/info', function(req, res) {
 
 app.get('/', function(req, res) {
         res.setHeader('Content-Type', 'text/plain');
-        res.send("empty root");
+        res.send("use /authenticate to test");
 });
 
 app.get('/authorization', function(req, res) {
